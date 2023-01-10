@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     //se crea el usuario y se añade a la base de datos
     public void crear_cuenta(View view) {
         //EditText et1 = (EditText) findViewById(R.id.editText); //no
-        Intent i = new Intent(MainActivity.this, LoginActivity.class );
+        Intent i = new Intent(MainActivity.this, TecladoNumerico.class );
         //i.putExtra("direccion", et1.getText().toString());
         startActivity(i);
     }
