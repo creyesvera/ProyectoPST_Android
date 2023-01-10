@@ -3,6 +3,7 @@ package com.example.proyectopst;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,14 +24,15 @@ public class TecladoNumerico extends AppCompatActivity {
     Button button8;
     Button button9;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_teclado_numerico);
 
         number = (EditText) findViewById(R.id.number);
         buttonClear = (Button) findViewById(R.id.button_clear);
-        button0 = (Button) findViewById(R.id.button_1);
+        button0 = (Button) findViewById(R.id.button_0);
         button1 = (Button) findViewById(R.id.button_1);
         button2 = (Button) findViewById(R.id.button_2);
         button3 = (Button) findViewById(R.id.button_3);
@@ -120,18 +122,12 @@ public class TecladoNumerico extends AppCompatActivity {
 
     private void onNumberClick(View v) {
         Button button = (Button) v;
-        String text = button.getText().toString();
-        number.setText(text);
+        String number = button.getText().toString();
+        this.number.setText(this.number.getText() + number);
     }
 
     public void onClearClick() {
         number.setText("");
     }
-
-
-
-    public void onClearClickBinding(View view) {
-            onClearClick();
-        }
 
 }
