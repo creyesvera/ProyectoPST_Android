@@ -4,16 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class Teclado extends AppCompatActivity {
-
+    private Thread hilo_tiempo;
     private TextView tiempo;
     private int tiempoJuego;
     private EditText numero;
     private int puntaje_extra=0;
+    private int num_bddatos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,24 +25,25 @@ public class Teclado extends AppCompatActivity {
 
         tiempo = (TextView)findViewById(R.id.tiempo);
         numero =(EditText) findViewById(R.id.numero);
-        Thread hilo_tiempo= new Thread(new Runnable() {
-            @Override
-            public void run() {
-                tiempoJuego =10;
-                while(tiempoJuego>0){
-                    try {
-                        tiempo.setText(tiempoJuego + "s");
-                        Thread.sleep(1000);
-                        tiempoJuego-=1;
-                    }catch(InterruptedException ex){
-                        ex.printStackTrace();
-                    }
 
-                }
-            /*if(tiempoJuego== 0 ){
-                //después que termina el tiempo se cambia de activity y se envían los datos al servidor
+        CountDownTimer temporizador = new CountDownTimer(10000, 1000) {
+            TextView textView = findViewById(R.id.tiempo);
+
+            public void onTick(long millisUntilFinished) {
+                // Actualiza el TextView con la cuenta restante
+                textView.setText(String.valueOf(millisUntilFinished / 1000));
+                tiempoJuego = Integer.parseInt(textView.getText().toString());
+
+            }
+
+            public void onFinish() {
+                // Cuando el temporizador llegue a cero, actualiza el TextView con un mensaje
+                //textView.setText("¡Temporizador terminado!");
                 int numero_ingresado= Integer.parseInt(numero.getText().toString());
-                int puntaje= puntaje_extra * numero_ingresado;
+                //verificar que el numero ingresado es igual al de la base de datos
+                //codigo
+
+                int puntaje= puntaje_extra + numero_ingresado;
 
                 Intent i = new Intent(Teclado.this, JuegoFinalizado.class );
                 String server= getIntent().getExtras().getString("server");
@@ -55,13 +59,9 @@ public class Teclado extends AppCompatActivity {
                 startActivity(i);
 
             }
-*/
+        };
+        temporizador.start();
 
-
-            }
-
-        });
-        hilo_tiempo.start();
 
     }
 
@@ -72,6 +72,5 @@ public class Teclado extends AppCompatActivity {
         puntaje_extra= tiempoJuego;
 
     }
-
 
 }

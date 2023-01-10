@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 public class JuegoFinalizado extends AppCompatActivity {
     private TextView text_puntaje;
+    private boolean jugar; // si esta activo se cambia a la actividad de teclado si no esta activo no pasa nada
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,9 @@ public class JuegoFinalizado extends AppCompatActivity {
 
         //i.putExtra("usuario", usernameEditText.getText().toString());
         //startActivity(i);
+
+        //codigo
+        //
     }
 
     public void volver_inicio(View view) {
