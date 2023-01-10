@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class TecladoNumerico extends AppCompatActivity {
@@ -23,13 +24,14 @@ public class TecladoNumerico extends AppCompatActivity {
     Button button7;
     Button button8;
     Button button9;
+    private TextView time;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teclado_numerico);
-
+        time = (TextView)findViewById(R.id.time);
         number = (EditText) findViewById(R.id.number);
         buttonClear = (Button) findViewById(R.id.button_clear);
         button0 = (Button) findViewById(R.id.button_0);
