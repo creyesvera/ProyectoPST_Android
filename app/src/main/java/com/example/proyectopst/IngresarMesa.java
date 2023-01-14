@@ -52,7 +52,7 @@ public class IngresarMesa extends AppCompatActivity {
         );
         requestQueue.add(request);
         */
-        Intent i = new Intent(IngresarMesa.this, Teclado.class );
+        Intent i = new Intent(IngresarMesa.this, TecladoNumerico.class );
         String server= getIntent().getExtras().getString("server");
         int port= getIntent().getExtras().getInt("port");
         String usuario= getIntent().getExtras().getString("usuario");

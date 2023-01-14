@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 
 import com.example.proyectopst.ui.login.LoginActivity;
@@ -29,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     //se incia seción y se verifica la existencia del usuario
     public void inicio_sesion(View view) {
-        //EditText et1 = (EditText) findViewById(R.id.editText); //no
-        Intent i = new Intent(MainActivity.this, LoginActivity.class );
+        //EditText et1 = (EditText) findViewById(R.id.nickname);
+        Intent i = new Intent(MainActivity.this, IngresarMesa.class );
         i.putExtra("server", server);
         i.putExtra("port", port);
         startActivity(i);
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     //se crea el usuario y se añade a la base de datos
     public void crear_cuenta(View view) {
-        //EditText et1 = (EditText) findViewById(R.id.editText); //no
+        //EditText et1 = (EditText) findViewById(R.id.nickname);
         Intent i = new Intent(MainActivity.this, TecladoNumerico.class );
         //i.putExtra("direccion", et1.getText().toString());
         startActivity(i);
