@@ -75,7 +75,7 @@
         android:id="@+id/imgSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="7dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
@@ -89,7 +89,7 @@
         android:layout_marginTop="52dp"
         app:layout_constraintStart_toEndOf="@+id/imgSelect"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        tools:srcCompat="@drawable/a" />
+        tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/img4"
@@ -109,7 +109,7 @@
         android:layout_marginTop="52dp"
         app:layout_constraintStart_toEndOf="@+id/img1"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        tools:srcCompat="@drawable/b" />
+        tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/img5"

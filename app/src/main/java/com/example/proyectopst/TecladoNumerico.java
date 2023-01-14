@@ -46,15 +46,15 @@ public class TecladoNumerico extends AppCompatActivity {
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         // Obtener el valor de turnos almacenado
         turnos = sharedPref.getInt("turnos", 3);
-
-        new CountDownTimer(10000, 1000) {
+        if(turnos ==0) turnos = 3;
+        new CountDownTimer(5000, 1000) {
             public void onTick(long millisUntilFinished) {
                 time.setText(""+millisUntilFinished / 1000);
             }
 
             public void onFinish() {
                 // Disminuir un turno y verificar
-                if (turnos > 0) {
+                if (turnos > 1) {
                     turnos-=1;
                     Toast.makeText(getApplicationContext(), "Turnos restantes: "+turnos, Toast.LENGTH_SHORT).show();
                     // Guardar el valor de turnos en SharedPreferences
@@ -116,42 +116,42 @@ public class TecladoNumerico extends AppCompatActivity {
                 onNumberClick(v);
             }
         });
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onNumberClick(v);
-            }
-        });
+
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClick(v);
             }
         });
+
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClick(v);
             }
         });
+
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClick(v);
             }
         });
+
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClick(v);
             }
         });
+
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClick(v);
             }
         });
+
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
