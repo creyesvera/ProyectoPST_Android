@@ -4,11 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.os.CountDownTimer;
+import android.widget.Toast;
 
 
 public class TecladoNumerico extends AppCompatActivity {
@@ -25,6 +30,8 @@ public class TecladoNumerico extends AppCompatActivity {
     Button button8;
     Button button9;
     private TextView time;
+    private int turnos;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -34,6 +41,37 @@ public class TecladoNumerico extends AppCompatActivity {
         time = (TextView)findViewById(R.id.time);
         number = (EditText) findViewById(R.id.number);
         buttonClear = (Button) findViewById(R.id.button_clear);
+
+        // Obtener la instancia de SharedPreferences
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        // Obtener el valor de turnos almacenado
+        turnos = sharedPref.getInt("turnos", 3);
+
+        new CountDownTimer(10000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                time.setText(""+millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                // Disminuir un turno y verificar
+                if (turnos > 0) {
+                    turnos-=1;
+                    Toast.makeText(getApplicationContext(), "Turnos restantes: "+turnos, Toast.LENGTH_SHORT).show();
+                    // Guardar el valor de turnos en SharedPreferences
+                    SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putInt("turnos", turnos);
+                    editor.apply();
+                    number.setText("");
+                    recreate();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Juego terminado", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), JuegoFinalizado.class);
+                    startActivity(intent);
+                }
+            }
+        }.start();
+
         button0 = (Button) findViewById(R.id.button_0);
         button1 = (Button) findViewById(R.id.button_1);
         button2 = (Button) findViewById(R.id.button_2);

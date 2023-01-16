@@ -17,7 +17,6 @@ public class IngresarMesa extends AppCompatActivity {
 
     private RequestQueue requestQueue;
     private EditText codigo; // id de mesa
-    private boolean jugar; // me lo da el servidor
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,23 +52,16 @@ public class IngresarMesa extends AppCompatActivity {
         );
         requestQueue.add(request);
         */
-
-        // mientras jugar no este activo no cambia de actividad
-        while(!jugar) {
-
-            Intent i = new Intent(IngresarMesa.this, Teclado.class);
-            String server = getIntent().getExtras().getString("server");
-            int port = getIntent().getExtras().getInt("port");
-            String usuario = getIntent().getExtras().getString("usuario");
-            i.putExtra("server", server);
-            i.putExtra("port", port);
-            i.putExtra("usuario", usuario);
-            i.putExtra("id_mesa", codigo.getText().toString());
-            //i.putExtra("usuario", usernameEditText.getText().toString());
-
-
-            startActivity(i);
-        }
+        Intent i = new Intent(IngresarMesa.this, Teclado.class );
+        String server= getIntent().getExtras().getString("server");
+        int port= getIntent().getExtras().getInt("port");
+        String usuario= getIntent().getExtras().getString("usuario");
+        i.putExtra("server", server);
+        i.putExtra("port", port);
+        i.putExtra("usuario",usuario);
+        i.putExtra("id_mesa", codigo.getText().toString());
+        //i.putExtra("usuario", usernameEditText.getText().toString());
+        startActivity(i);
     }
 
 }
