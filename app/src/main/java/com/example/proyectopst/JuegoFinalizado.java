@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 public class JuegoFinalizado extends AppCompatActivity {
     private TextView text_puntaje;
+    private boolean jugar; // si esta activo se cambia a la actividad de teclado si no esta activo no pasa nada
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +22,7 @@ public class JuegoFinalizado extends AppCompatActivity {
        // Intent i = new Intent(JuegoFinalizado.this, Te.class );
         String server= getIntent().getExtras().getString("server");
         int port= getIntent().getExtras().getInt("port");
-        String usuario= getIntent().getExtras().getString("usuario");
+        String id_usuario= getIntent().getExtras().getString("id_usuario");
         String id_mesa= getIntent().getExtras().getString("id_mesa");
         int puntaje = getIntent().getExtras().getInt("puntaje");
         /*
@@ -30,10 +32,13 @@ public class JuegoFinalizado extends AppCompatActivity {
         i.putExtra("id_mesa", id_mesa);
         i.putExtra("puntaje", puntaje);
         */
-        text_puntaje.setText(usuario + "   " + puntaje + " pts");
+        text_puntaje.setText(puntaje + " pts");
 
         //i.putExtra("usuario", usernameEditText.getText().toString());
         //startActivity(i);
+
+        //codigo
+        //
     }
 
     public void volver_inicio(View view) {
