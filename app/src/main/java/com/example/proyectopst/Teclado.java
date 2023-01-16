@@ -48,11 +48,11 @@ public class Teclado extends AppCompatActivity {
                 Intent i = new Intent(Teclado.this, JuegoFinalizado.class );
                 String server= getIntent().getExtras().getString("server");
                 int port= getIntent().getExtras().getInt("port");
-                String usuario= getIntent().getExtras().getString("usuario");
+                String id_usuario= getIntent().getExtras().getString("id_usuario");
                 String id_mesa= getIntent().getExtras().getString("id_mesa");
                 i.putExtra("server", server);
                 i.putExtra("port", port);
-                i.putExtra("usuario",usuario);
+                i.putExtra("id_usuario",id_usuario);
                 i.putExtra("id_mesa", id_mesa);
                 i.putExtra("puntaje", puntaje);
                 //i.putExtra("usuario", usernameEditText.getText().toString());

@@ -23,6 +23,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.proyectopst.IngresarMesa;
 import com.example.proyectopst.R;
 import com.example.proyectopst.Teclado;
@@ -34,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
+    private RequestQueue requestQueue;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,14 +90,48 @@ public class LoginActivity extends AppCompatActivity {
 
                 //Complete and destroy login activity once successful
                 //finish();
-
+                requestQueue = Volley.newRequestQueue(LoginActivity.this);
                 //Recibe la info del anterior Activity y la envia al siguiente activity
                 Intent i = new Intent(LoginActivity.this, IngresarMesa.class );
                 String server= getIntent().getExtras().getString("server");
                 int port= getIntent().getExtras().getInt("port");
+
+                //consulta con el servidor
+                int id;
+                int puntaje;
+                int estrellas;
+
+                StringRequest request = new StringRequest(
+                        Request.Method.GET,
+                        "http://"+server+":"+port+"/android/SELECT id, puntaje, estrellas" + " from "+ "Usuarios" +" WHERE " +"UserName= \"" + usernameEditText.getText().toString() + "\" && password= \"" + passwordEditText.getText().toString() + "\" ",
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                                if(response != null){
+                                    //consulta=response;
+                                    //id = response.toString();
+                                }
+
+                                else {
+                                    //consulta = "Error desconocido en la consulta";
+                                }
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        }
+                );
+                requestQueue.add(request);
+
+                //
                 i.putExtra("server", server);
                 i.putExtra("port", port);
-                i.putExtra("usuario", usernameEditText.getText().toString());
+                i.putExtra("idusuario", usernameEditText.getText().toString());
                 startActivity(i);
             }
         });
