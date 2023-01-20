@@ -20,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.proyectopst.ui.login.LoginActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -108,8 +109,14 @@ public class MainActivity extends AppCompatActivity {
                                 usernameEditText.setText("usuario o contrasena incorrecta");
                             }
                             else {
-                                String[] cadena = Arrays.stream(response.split("\\r\\n")).toArray(String[]::new);
-                                String[] datos = Arrays.stream(cadena[3].split(" \\t\\t\\t| ")).toArray(String[]::new);
+                                String[] cadena = new String[0];
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                    cadena = Arrays.stream(response.split("\\r\\n")).toArray(String[]::new);
+                                }
+                                String[] datos = new String[0];
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                    datos = Arrays.stream(cadena[3].split(" \\t\\t\\t| ")).toArray(String[]::new);
+                                }
                                 int id = Integer.parseInt(datos[0]);
                                 int puntaje = Integer.parseInt(datos[2]);
                                 int estrellas = Integer.parseInt(datos[4]);
