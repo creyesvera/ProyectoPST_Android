@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     //se conecta a la base de datos
 
-    private String server = "172.19.191.168";
+    private String server = "192.168.200.26";
     private int port = 8080;
     // definir imagenes
     private ImageView imageSelect;

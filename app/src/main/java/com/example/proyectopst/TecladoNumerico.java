@@ -165,6 +165,7 @@ public class TecladoNumerico extends AppCompatActivity {
         String number = button.getText().toString();
         this.number.setText(this.number.getText() + number);
     }
+
     private void enviarRepuesta(){
 
     }
