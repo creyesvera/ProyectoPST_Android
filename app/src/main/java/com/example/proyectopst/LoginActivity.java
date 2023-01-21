@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -15,9 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.util.Arrays;
-
-public class LoginUser extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private String server;
     private int port;
@@ -29,15 +26,16 @@ public class LoginUser extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_user);
+        setContentView(R.layout.activity_login);
 
 
-        requestQueue = Volley.newRequestQueue(LoginUser.this);
+        requestQueue = Volley.newRequestQueue(LoginActivity.this);
 
         usernameEditText = (EditText)findViewById(R.id.userName);
         passwordEditText = (EditText)findViewById(R.id.pass);
     }
-    private void login(View view) { //el usuario se registra
+
+    public void login(View view) { //el usuario se registra
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 "http://"+server+":"+port+"/android/SELECT id, puntaje, estrellas from usuarios WHERE nombre= '" + usernameEditText.getText().toString() +"'",
@@ -60,7 +58,7 @@ public class LoginUser extends AppCompatActivity {
 
                                                     }
                                                     else{
-                                                        Intent i = new Intent(LoginUser.this, IngresarMesa.class);
+                                                        Intent i = new Intent(LoginActivity.this, IngresarMesa.class);
                                                         i.putExtra("server", server);
                                                         i.putExtra("port", port);
                                                         i.putExtra("id", 0);

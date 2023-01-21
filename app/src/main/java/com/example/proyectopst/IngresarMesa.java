@@ -13,6 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.Arrays;
 
@@ -38,10 +39,13 @@ public class IngresarMesa extends AppCompatActivity {
         int port= getIntent().getExtras().getInt("port");
         int id = getIntent().getExtras().getInt("id"); //id de usuario
 
+        requestQueue = Volley.newRequestQueue(IngresarMesa.this);
+
         //conectar ---- envía el id de usuario y el id de su mesa
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 "http://"+server+":"+port+"/android/insert/INSERT INTO mesas(id,iduser) VALUES("+id_mesa+","+ id + ")",
+                //"http://"+server+":"+port+"/android/"+id_mesa+"/"+ id,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -119,5 +123,7 @@ public class IngresarMesa extends AppCompatActivity {
         requestQueue.add(request);
 
     }
+
+
 
 }
