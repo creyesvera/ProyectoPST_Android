@@ -30,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private int port = 8080;
     // definir imagenes
     private ImageView imageSelect;
-    private ImageView img1, img2, img3, img4, img5, img6;
-    
+    // login
     private RequestQueue requestQueue;
     private EditText usernameEditText;
     private EditText passwordEditText;
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-// Arreglo de ImageView
+        // Arreglo de ImageView
         ImageView[] imageViews = {
                 (ImageView) findViewById(R.id.img1),
                 (ImageView) findViewById(R.id.img2),

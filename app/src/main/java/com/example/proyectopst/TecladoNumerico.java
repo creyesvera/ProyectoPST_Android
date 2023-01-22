@@ -31,6 +31,10 @@ public class TecladoNumerico extends AppCompatActivity {
     Button button9;
     private TextView time;
     private int turnos;
+    private int tiempoJuego;
+    private int puntaje_extra;
+    private EditText numero;
+
 
 
     @SuppressLint("MissingInflatedId")
@@ -47,12 +51,17 @@ public class TecladoNumerico extends AppCompatActivity {
         // Obtener el valor de turnos almacenado
         turnos = sharedPref.getInt("turnos", 3);
         if(turnos ==0) turnos = 3;
-        new CountDownTimer(5000, 1000) {
+        new CountDownTimer(10000, 1000) {
             public void onTick(long millisUntilFinished) {
                 time.setText(""+millisUntilFinished / 1000);
+                tiempoJuego = Integer.parseInt(time.getText().toString());
             }
 
             public void onFinish() {
+
+                int num_user = Integer.parseInt(numero.getText().toString());
+                int puntaje = puntaje_extra + num_user;
+
                 // Disminuir un turno y verificar
                 if (turnos > 1) {
                     turnos-=1;
@@ -67,6 +76,16 @@ public class TecladoNumerico extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Juego terminado", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), JuegoFinalizado.class);
+                    String server= getIntent().getExtras().getString("server");
+                    int port= getIntent().getExtras().getInt("port");
+                    String id_usuario= getIntent().getExtras().getString("id_usuario");
+                    String id_mesa= getIntent().getExtras().getString("id_mesa");
+                    intent.putExtra("server", server);
+                    intent.putExtra("port", port);
+                    intent.putExtra("id_usuario",id_usuario);
+                    intent.putExtra("id_mesa", id_mesa);
+                    intent.putExtra("puntaje", puntaje);
+
                     startActivity(intent);
                 }
             }
@@ -166,7 +185,10 @@ public class TecladoNumerico extends AppCompatActivity {
         this.number.setText(this.number.getText() + number);
     }
 
-    private void enviarRepuesta(){
+   public void enviarRepuesta(View view){
+       numero.setClickable(false);
+       numero.setFocusable(false);
+       puntaje_extra= tiempoJuego;
 
     }
     public void onClearClick() {

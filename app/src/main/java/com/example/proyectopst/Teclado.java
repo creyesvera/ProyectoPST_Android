@@ -10,12 +10,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class Teclado extends AppCompatActivity {
-    private Thread hilo_tiempo;
     private TextView tiempo;
     private int tiempoJuego;
     private EditText numero;
     private int puntaje_extra=0;
-    private int num_bddatos;
 
 
     @Override
