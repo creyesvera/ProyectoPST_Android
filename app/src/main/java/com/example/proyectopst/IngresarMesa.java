@@ -38,6 +38,8 @@ public class IngresarMesa extends AppCompatActivity {
         port = getIntent().getExtras().getInt("port");
 
     }
+
+    // hola
     public void crear_mesa(View view){
         id_usuario = getIntent().getExtras().getInt("id");
         obtener_id_mesa(); // id de mesa
