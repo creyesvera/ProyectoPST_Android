@@ -22,8 +22,8 @@ public class IngresarMesa extends AppCompatActivity {
 
     private RequestQueue requestQueue;
     private EditText codigo; // id de mesa
-    private String id_mesa;
-    private String id_usuario;
+    private int id_mesa;
+    private int id_usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +36,14 @@ public class IngresarMesa extends AppCompatActivity {
         Intent i = new Intent(IngresarMesa.this, Teclado.class);
         String server = getIntent().getExtras().getString("server");
         int port = getIntent().getExtras().getInt("port");
-        id_usuario = String.valueOf(getIntent().getExtras().getInt("id"));
+        id_usuario = getIntent().getExtras().getInt("id");
         obtener_id_mesa(codigo.getText().toString(), server, port); // id de mesa
-        StringRequest request = new StringRequest(
-            Request.Method.Post,
-            "http://" + server + ":" + port + "/android/insert/INSERT INTO partidas (id_mesa, id_usuario, puntaje) VALUES ('" + id_mesa + "', '" + id_usuario + ", " + '0' +")",
-            new Response.Listener<String>() {
+        StringRequest request_new = new StringRequest(Request.Method.POST,
+                "http://" + server + ":" + port
+                        + "/android/insert/INSERT INTO partidas (id_mesa, id_usuario) VALUES ("
+                        + id_mesa + ", "
+                        + id_usuario + ")",
+                new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     if (response != null) {
@@ -51,13 +53,11 @@ public class IngresarMesa extends AppCompatActivity {
                         } else {
                             Toast.makeText(getApplicationContext(), "Error al crear partida", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        // Handle the case where the code is incorrect or there is an error in the response
                     }
                 }
             }
         );
-        requestQueue.add(request);
+        requestQueue.add(request_new);
     }
 
     public void obtener_id_mesa(final String code, final String server, final int port) {
