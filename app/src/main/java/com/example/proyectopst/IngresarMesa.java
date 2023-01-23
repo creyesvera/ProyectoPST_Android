@@ -24,65 +24,57 @@ public class IngresarMesa extends AppCompatActivity {
     private EditText codigo; // id de mesa
     private int id_mesa;
     private int id_usuario;
+    private int repuesta;
+    private String server;
+    private int port;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingresar_mesa);
         codigo = (EditText) findViewById(R.id.codigo);
         requestQueue = Volley.newRequestQueue(IngresarMesa.this);
+        Intent i = new Intent(IngresarMesa.this, Teclado.class);
+        server = getIntent().getExtras().getString("server");
+        port = getIntent().getExtras().getInt("port");
 
     }
     public void crear_mesa(View view){
-        Intent i = new Intent(IngresarMesa.this, Teclado.class);
-        String server = getIntent().getExtras().getString("server");
-        int port = getIntent().getExtras().getInt("port");
         id_usuario = getIntent().getExtras().getInt("id");
-        obtener_id_mesa(codigo.getText().toString(), server, port); // id de mesa
-        StringRequest request_new = new StringRequest(Request.Method.POST,
-                "http://" + server + ":" + port
-                        + "/android/insert/INSERT INTO partidas (id_mesa, id_usuario) VALUES ("
-                        + id_mesa + ", "
-                        + id_usuario + ")",
-                new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    if (response != null) {
-                         // Handle the case where the insert is successful
-                         if(response.equals("Partida creada")) {
-                            Toast.makeText(getApplicationContext(), "Partida creada exitosamente", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Error al crear partida", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            }
-        );
-        requestQueue.add(request_new);
+        obtener_id_mesa(); // id de mesa
+
     }
 
-    public void obtener_id_mesa(final String code, final String server, final int port) {
+    public void obtener_id_mesa() {
         // Send a GET request to the server to obtain the id_mesa based on the code entered
         StringRequest request = new StringRequest(
                 Request.Method.GET,
-                "http://" + server + ":" + port + "/android/SELECT id FROM mesas WHERE codigo = '" + code + "'",
+                "http://" + server + ":" + port + "/android/SELECT id FROM mesas WHERE codigo = '" +  codigo.getText().toString()+ "')",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         if (response != null) {
-                            // If the code is correct, parse the id_mesa from the response
-                            id_mesa = Integer.parseInt(response);
-                            // Do something with the id_mesa, such as storing it in a variable or passing it to another method
+                            if (response.equals("Tabla vacia")){
+                                Toast.makeText(IngresarMesa.this, "Mesa no encontrada", Toast.LENGTH_SHORT).show();                        
+                            } else {
+                                String[] cadena = new String[0];
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                    cadena = Arrays.stream(response.split("\\r\\n")).toArray(String[]::new);
+                                }
+                                String[] datos = new String[0];
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                    datos = Arrays.stream(cadena[3].split("\\t\\t\\t| ")).toArray(String[]::new);
+                                } 
+
+                                id_mesa = Integer.parseInt(datos[1]);
+                                repuesta = Integer.parseInt(datos[2]);
+                                Toast.makeText(IngresarMesa.this, "id_mesa: " + id_mesa, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(IngresarMesa.this, "repuesta: " + repuesta, Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            // Handle the case where the code is incorrect or there is an error in the response
-                        }
+                            Toast.makeText(IngresarMesa.this, "Error al obtener id_mesa", Toast.LENGTH_SHORT).show();
+                        }   
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle the case where there is an error in the request
-                    }
-                }
+                }         
         );
         requestQueue.add(request);
     }
