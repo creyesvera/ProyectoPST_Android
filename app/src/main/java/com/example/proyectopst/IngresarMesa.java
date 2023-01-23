@@ -45,7 +45,7 @@ public class IngresarMesa extends AppCompatActivity {
 
     public void cargar_mesa(View view) {
 
-        Intent i = new Intent(IngresarMesa.this, TecladoNumerico.class );
+        Intent i = new Intent(IngresarMesa.this, Teclado.class );
         String server= getIntent().getExtras().getString("server");
         int port= getIntent().getExtras().getInt("port");
         id_usuario = getIntent().getExtras().getInt("id");
